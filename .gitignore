@@ -1,0 +1,8 @@
+node_modules/
+dist/
+public/media/interview.mp4
+assets/*.blend
+assets/*.blend1
+output/
+.playwright-cli/
+.DS_Store

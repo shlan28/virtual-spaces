@@ -1,0 +1,5 @@
+Generation mode: built-in image_gen.
+Output: public/textures/cloud-panorama.png
+Purpose: distant sky and cloud background, not a replacement for the interactive 3D scene.
+
+Use case: stylized-concept. Asset type: 2:1 equirectangular panoramic environment background texture for a Three.js virtual cloud island world. Generate an extraordinarily beautiful bright ethereal blue sky above a vast ocean of billowing white and very faint warm peach cumulus clouds. Entire bottom half filled with thick layered clouds stretching to horizon, upper half blue sky with a few soft white wisps. Daylight, sun out of frame, pastel turquoise atmosphere but vivid fresh azure at zenith. Horizon at vertical midpoint. Painterly photoreal high-end environment matte painting, soft atmospheric perspective with detailed cotton cloud contours. The panorama contains NO land, no rocks, no islands, no buildings, no people, no text, no planets, no objects, no portals. A seamless horizontal wrap style panorama. Wide 2:1 composition, bright, airy, warm sunlight from upper left, no night, no dark colors. This is a skybox asset only; the interactive islands will be rendered separately.
