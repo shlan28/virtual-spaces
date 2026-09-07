@@ -7,7 +7,8 @@ from pathlib import Path
 from mathutils import Vector
 from mathutils.noise import noise_vector
 
-ROOT = Path('/Users/lu/Desktop/achoverse/achoverse-marketing/interview-cloud-world')
+# MCP 执行时设置 __file__ 为本脚本路径，与命令行运行保持一致。
+ROOT = Path(__file__).resolve().parents[1]
 random.seed(240906)
 for folder in ['assets','public/models','output']:
     (ROOT / folder).mkdir(parents=True, exist_ok=True)
