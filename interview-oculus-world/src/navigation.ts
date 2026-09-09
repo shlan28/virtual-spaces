@@ -1,6 +1,6 @@
-import { PerspectiveCamera } from 'three';
+import * as THREE from 'three';
 import type { Point3, WorldLayout } from './layout';
-import { diagonalScale, nextLateral } from './movement';
+import { FreeMovement, movementAxes } from './movement';
 
 type Paths = Record<string, Point3[]>;
 interface RouteLeg { from: string; to: string; points: Point3[]; length: number; startEye: number; endEye: number }
@@ -45,10 +45,12 @@ export function sampleRoute(points: Point3[], distance: number, output: Point3):
   return 0;
 }
 
-export function createNavigation(camera: PerspectiveCamera, canvas: HTMLCanvasElement, layout: WorldLayout, onLocation: (id: string) => void) {
+export function createNavigation(camera: THREE.PerspectiveCamera, canvas: HTMLCanvasElement, layout: WorldLayout, colliders: THREE.Object3D[], onLocation: (id: string) => void) {
   let enabled = true, dragging = false, pointer = -1, lastX = 0, lastY = 0, yaw = 0, pitch = 0;
-  let currentId = 'entry', previousId = '', legs: RouteLeg[] = [], distance = 0, automatic = false, lookCooldown = 0;
-  let forward = false, backward = false, left = false, right = false, lateral = 0, fadeTime = -1, pendingDestination: string | null = null;
+  let currentId = 'entry', previousId = '', legs: RouteLeg[] = [], distance = 0, automatic = false, offRoute = false, lookCooldown = 0;
+  let forward = false, backward = false, fadeTime = -1, pendingDestination: string | null = null;
+  const keys = new Set<string>(), facing = new THREE.Vector3();
+  const movement = new FreeMovement(colliders, {speed: 3.9, maxStepUp: .48, maxDrop: .8});
   const sample: Point3 = [0, 0, 0];
   const controls = document.createElement('section'); controls.className = 'journey-controls'; controls.setAttribute('aria-label', '沿馆内路线探索');
   const branchContainer = document.createElement('div'); branchContainer.className = 'journey-branches';
@@ -81,13 +83,15 @@ export function createNavigation(camera: PerspectiveCamera, canvas: HTMLCanvasEl
     const {position, target} = layout.destinations[id]; const dx = target[0] - position[0], dy = target[1] - position[1], dz = target[2] - position[2];
     yaw = Math.atan2(-dx, -dz); pitch = Math.asin(dy / Math.hypot(dx, dy, dz)); camera.position.set(...position); camera.rotation.set(pitch, yaw, 0, 'YXZ');
   }
-  function arrive(id: string, from: string) { forward = backward = left = right = false; lateral = 0; previousId = from; currentId = id; onLocation(id); refreshControls(); }
+  function arrive(id: string, from: string) { forward = backward = false; offRoute = false; previousId = from; currentId = id; onLocation(id); movement.sync(camera.position); refreshControls(); }
   function navigate(id: string) {
     if (!layout.destinations[id]) return;
-    forward = backward = left = right = automatic = false; lateral = 0; dragging = false; pendingDestination = id; fadeTime = 0;
+    forward = backward = automatic = false; keys.clear(); movement.stop(); dragging = false; pendingDestination = id; fadeTime = 0;
   }
   function walkTo(id: string) {
     if (!enabled || !layout.destinations[id]) return;
+    if (offRoute) { navigate(id); return; }
+    movement.stop();
     const start = legs.length ? legs[0].to : currentId;
     const route = shortestRoute(layout.paths, start, id);
     if (!route.length) return;
@@ -113,15 +117,15 @@ export function createNavigation(camera: PerspectiveCamera, canvas: HTMLCanvasEl
   const isTyping = (event: KeyboardEvent) => event.target instanceof HTMLElement && (event.target.matches('input,textarea,select,button,video') || event.target.isContentEditable || !!event.target.closest('[role="dialog"]'));
   const onKeyDown = (event: KeyboardEvent) => {
     if (!enabled || isTyping(event)) return;
-    if (event.code === 'KeyW' || event.code === 'ArrowUp') { event.preventDefault(); forward = true; automatic = false; }
-    if (event.code === 'KeyS' || event.code === 'ArrowDown') { event.preventDefault(); backward = true; automatic = false; }
-    if (event.code === 'KeyA') { event.preventDefault(); left = true; automatic = false; }
-    if (event.code === 'KeyD') { event.preventDefault(); right = true; automatic = false; }
+    if (['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown'].includes(event.code)) {
+      event.preventDefault(); keys.add(event.code);
+      if (automatic || legs.length) { automatic = false; legs = []; distance = 0; refreshControls(); }
+    }
   };
-  const onKeyUp = (event: KeyboardEvent) => { if (event.code === 'KeyW' || event.code === 'ArrowUp') forward = false; if (event.code === 'KeyS' || event.code === 'ArrowDown') backward = false; if (event.code === 'KeyA') left = false; if (event.code === 'KeyD') right = false; };
-  const onBlur = () => { forward = backward = left = right = automatic = false; pointer = -1; refreshControls(); };
-  forwardButton.addEventListener('pointerdown', event => { if (!enabled) return; event.preventDefault(); forward = true; backward = automatic = false; });
-  backButton.addEventListener('pointerdown', event => { if (!enabled) return; event.preventDefault(); backward = true; forward = automatic = false; });
+  const onKeyUp = (event: KeyboardEvent) => { keys.delete(event.code); };
+  const onBlur = () => { forward = backward = automatic = false; keys.clear(); movement.stop(); pointer = -1; refreshControls(); };
+  forwardButton.addEventListener('pointerdown', event => { if (!enabled) return; event.preventDefault(); forward = true; backward = automatic = false; legs = []; distance = 0; movement.stop(); refreshControls(); });
+  backButton.addEventListener('pointerdown', event => { if (!enabled) return; event.preventDefault(); backward = true; forward = automatic = false; legs = []; distance = 0; movement.stop(); refreshControls(); });
   // Keyboard activation gives a short, accessible guided journey rather than requiring a held pointer.
   forwardButton.addEventListener('click', event => { if (event.detail === 0 && enabled) { if (!legs.length) stepStart(false); automatic = legs.length > 0; refreshControls(); } });
   backButton.addEventListener('click', event => { if (event.detail === 0 && enabled) {
@@ -129,21 +133,21 @@ export function createNavigation(camera: PerspectiveCamera, canvas: HTMLCanvasEl
     else stepStart(true);
     automatic = legs.length > 0; refreshControls();
   } });
-  stopButton.addEventListener('click', () => { automatic = false; refreshControls(); });
+  stopButton.addEventListener('click', () => { automatic = false; legs = []; distance = 0; refreshControls(); });
   canvas.addEventListener('pointerdown', onPointerDown); window.addEventListener('pointermove', onPointerMove); window.addEventListener('pointerup', onPointerUp); window.addEventListener('pointercancel', onPointerUp);
   window.addEventListener('keydown', onKeyDown); window.addEventListener('keyup', onKeyUp); window.addEventListener('blur', onBlur);
-  lookAtDestination(currentId); refreshControls();
+  lookAtDestination(currentId); movement.sync(camera.position); refreshControls();
 
   return {
     get enabled() { return enabled; },
-    set enabled(value: boolean) { enabled = value; controls.inert = !value; controls.classList.toggle('is-disabled', !value); if (!value) { forward = backward = left = right = false; pointer = -1; dragging = false; } },
+    set enabled(value: boolean) { enabled = value; controls.inert = !value; controls.classList.toggle('is-disabled', !value); if (!value) { forward = backward = false; keys.clear(); movement.stop(); pointer = -1; dragging = false; } },
     get dragging() { return dragging; },
     get currentId() { return currentId; },
     navigate, walkTo,
-    save(): NavigationSnapshot { return { currentId, previousId, legs: [...legs], distance, automatic, yaw, pitch, position: [camera.position.x, camera.position.y, camera.position.z] }; },
+    save(): NavigationSnapshot { movement.stop(); return { currentId, previousId, legs: [...legs], distance, automatic, yaw, pitch, position: [camera.position.x, camera.position.y, camera.position.z] }; },
     restore(saved: NavigationSnapshot) {
       currentId = saved.currentId; previousId = saved.previousId; legs = [...saved.legs]; distance = saved.distance; automatic = saved.automatic; yaw = saved.yaw; pitch = saved.pitch;
-      pendingDestination = null; fadeTime = -1; fade.style.opacity = '0'; camera.position.set(...saved.position); camera.rotation.set(pitch, yaw, 0, 'YXZ'); onLocation(currentId); refreshControls();
+      pendingDestination = null; fadeTime = -1; fade.style.opacity = '0'; camera.position.set(...saved.position); camera.rotation.set(pitch, yaw, 0, 'YXZ'); movement.sync(camera.position); onLocation(currentId); refreshControls();
     },
     update(delta: number) {
       const dt = Math.min(0.08, Math.max(0, delta));
@@ -156,24 +160,23 @@ export function createNavigation(camera: PerspectiveCamera, canvas: HTMLCanvasEl
       if (!enabled) return;
       if (pointer === -1) dragging = false;
       lookCooldown = Math.max(0, lookCooldown - dt);
-      if (!legs.length && (forward || backward || left || right)) stepStart(backward);
-      if (legs.length && (automatic || forward || backward || left || right)) {
-        const leg = legs[0]; const direction = backward ? -1 : 1;
-        if (backward && distance === 0) { const reverse = makeLeg(leg.to, leg.from); legs[0] = reverse; distance = reverse.length; }
+      if (legs.length && automatic) {
         const active = legs[0];
-        const walking = forward || backward; const strafing = left || right; const scale = diagonalScale(Number(walking), Number(strafing));
-        if (walking || automatic) distance = Math.max(0, Math.min(active.length, distance + dt * 3.4 * direction * (automatic ? 1 : scale)));
-        lateral = nextLateral(lateral, (right ? 1 : 0) - (left ? 1 : 0), dt, 2.6 * scale, 1.35);
+        distance = Math.max(0, Math.min(active.length, distance + dt * 3.4));
         const index = sampleRoute(active.points, distance, sample);
         const eye = active.startEye + (active.endEye - active.startEye) * (distance / active.length);
-        const tangentIndex = Math.max(1, index); const a = active.points[tangentIndex - 1], b = active.points[tangentIndex]; const dx = b[0] - a[0], dz = b[2] - a[2], horizontalLength = Math.hypot(dx, dz) || 1;
-        camera.position.set(sample[0] - dz / horizontalLength * lateral, sample[1] + eye, sample[2] + dx / horizontalLength * lateral);
+        camera.position.set(sample[0], sample[1] + eye, sample[2]);
         if (!dragging && lookCooldown === 0 && index > 0) {
+          const a = active.points[index - 1], b = active.points[index];
           const targetYaw = Math.atan2(-(b[0] - a[0]), -(b[2] - a[2]));
           const difference = Math.atan2(Math.sin(targetYaw - yaw), Math.cos(targetYaw - yaw)); yaw += difference * Math.min(1, dt * 3);
         }
-        if (distance >= active.length && direction > 0) { legs.shift(); distance = 0; if (!legs.length) { automatic = false; lookAtDestination(active.to); } arrive(active.to, active.from); }
-        else if (distance <= 0 && direction < 0) { legs = []; automatic = false; arrive(active.from, active.to); }
+        if (distance >= active.length) { legs.shift(); distance = 0; if (!legs.length) { automatic = false; lookAtDestination(active.to); } arrive(active.to, active.from); }
+      } else {
+        const axes = movementAxes(keys); axes.forward = THREE.MathUtils.clamp(axes.forward + Number(forward) - Number(backward), -1, 1);
+        camera.rotation.set(pitch, yaw, 0, 'YXZ'); camera.getWorldDirection(facing);
+        const applied = movement.update(camera.position, facing, axes, dt); camera.position.add(applied);
+        if (applied.lengthSq() > 0) offRoute = true;
       }
       camera.rotation.set(pitch, yaw, 0, 'YXZ');
     },

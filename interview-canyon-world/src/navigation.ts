@@ -1,7 +1,6 @@
 import * as THREE from 'three';
-import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
-import type {WorldLayout,Point3} from './layout';
-import {diagonalScale,movementAxes,nextLateral} from './movement';
+import type {Point3} from './layout';
+import {FreeMovement,movementAxes} from './movement';
 
 interface Destination {name:string;description:string;position:Point3;target:Point3}
 export const destinations:Record<string,Destination>={
@@ -13,28 +12,32 @@ export const destinations:Record<string,Destination>={
  summit:{name:'留给下一场对话',description:'新的嘉宾与问题，将在这片高处继续生长。',position:[7,11.2,-43],target:[7,10,-55]},
  overview:{name:'一座持续生长的内容峡谷',description:'洞室承载访谈，沿途的观点连接不同问题。',position:[48,55,62],target:[-1,4,-17]}
 };
-export function createNavigation(camera:THREE.PerspectiveCamera,canvas:HTMLCanvasElement,layout:WorldLayout,onLocation:(id:string)=>void){
- const controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.enablePan=false;controls.rotateSpeed=.32;controls.minDistance=3;controls.maxDistance=30;controls.maxPolarAngle=Math.PI*.48;
- const curve=new THREE.CatmullRomCurve3(layout.route.map(p=>new THREE.Vector3(...p)),false,'catmullrom',.5);
+
+export function createNavigation(camera:THREE.PerspectiveCamera,canvas:HTMLCanvasElement,colliders:THREE.Object3D[],onLocation:(id:string)=>void){
+ let enabled=true,pointer=-1,lastX=0,lastY=0,yaw=0,pitch=0,currentId='entry',last=0,blocked=false,timer:number|undefined;
+ let saved:{position:THREE.Vector3;yaw:number;pitch:number;id:string}|undefined;
+ const keys=new Set<string>(),facing=new THREE.Vector3();
+ const movement=new FreeMovement(colliders,{speed:3.8,maxStepUp:.55,maxDrop:.9});
+ const controls={
+  get enabled(){return enabled;},
+  set enabled(value:boolean){enabled=value;if(!value){keys.clear();movement.stop();pointer=-1;}}
+ };
  const veil=document.createElement('div');veil.style.cssText='position:fixed;inset:0;background:#ece2d5;opacity:0;pointer-events:none;z-index:9;transition:opacity .22s ease';document.body.append(veil);
- let currentId='entry',last=0,journey=0,lateral=0,blocked=false,timer:number|undefined;
- let saved:{position:THREE.Vector3;target:THREE.Vector3;id:string}|undefined;
- const keys=new Set<string>(),point=new THREE.Vector3(),target=new THREE.Vector3(),routeRight=new THREE.Vector3();
- function setPosition(p:Point3,t:Point3){camera.position.fromArray(p);controls.target.fromArray(t);controls.update();}
+ function setPosition(position:Point3,target:Point3){camera.position.fromArray(position);const dx=target[0]-position[0],dy=target[1]-position[1],dz=target[2]-position[2];yaw=Math.atan2(-dx,-dz);pitch=Math.asin(THREE.MathUtils.clamp(dy/(Math.hypot(dx,dy,dz)||1),-1,1));camera.rotation.set(pitch,yaw,0,'YXZ');movement.sync(camera.position);}
  setPosition(destinations.entry.position,destinations.entry.target);
- function closestJourney(){let best=Infinity;for(let i=0;i<=200;i++){curve.getPoint(i/200,point);const d=point.distanceToSquared(camera.position);if(d<best){best=d;journey=i/200;}}}
- // 跨展区定位在遮罩内切换，镜头不飞穿岩壁；连续探索仍沿真实路线移动。
- function transition(action:()=>void){window.clearTimeout(timer);blocked=true;veil.style.opacity='1';timer=window.setTimeout(()=>{action();veil.style.opacity='0';blocked=false;},230);}
- function navigate(id:string){const d=destinations[id];if(!d)return;keys.clear();transition(()=>{currentId=id;lateral=0;controls.maxDistance=id==='overview'?120:30;setPosition(d.position,d.target);closestJourney();onLocation(id);});}
- function down(e:KeyboardEvent){if(e.target instanceof HTMLElement&&e.target.closest('input,textarea,button,video,[role="dialog"]'))return;if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown'].includes(e.code)){keys.add(e.code);e.preventDefault();}}
- function up(e:KeyboardEvent){keys.delete(e.code);}
- const blur=()=>keys.clear();window.addEventListener('keydown',down);window.addEventListener('keyup',up);window.addEventListener('blur',blur);
+ function transition(action:()=>void){window.clearTimeout(timer);blocked=true;keys.clear();movement.stop();veil.style.opacity='1';timer=window.setTimeout(()=>{action();veil.style.opacity='0';blocked=false;},230);}
+ function navigate(id:string){const d=destinations[id];if(!d)return;transition(()=>{currentId=id;setPosition(d.position,d.target);onLocation(id);});}
+ function down(event:KeyboardEvent){if(!enabled||event.target instanceof HTMLElement&&event.target.closest('input,textarea,button,video,[role="dialog"]'))return;if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown'].includes(event.code)){keys.add(event.code);event.preventDefault();}}
+ function up(event:KeyboardEvent){keys.delete(event.code);}
+ const blur=()=>{keys.clear();movement.stop();pointer=-1;};
+ function pointerDown(event:PointerEvent){if(!enabled||event.button!==0)return;pointer=event.pointerId;lastX=event.clientX;lastY=event.clientY;}
+ function pointerMove(event:PointerEvent){if(!enabled||pointer!==event.pointerId)return;yaw-=(event.clientX-lastX)*.003;pitch=THREE.MathUtils.clamp(pitch-(event.clientY-lastY)*.003,-1.05,1.05);lastX=event.clientX;lastY=event.clientY;}
+ function pointerUp(event:PointerEvent){if(pointer===event.pointerId)pointer=-1;}
+ canvas.addEventListener('pointerdown',pointerDown);window.addEventListener('pointermove',pointerMove);window.addEventListener('pointerup',pointerUp);window.addEventListener('pointercancel',pointerUp);
+ window.addEventListener('keydown',down);window.addEventListener('keyup',up);window.addEventListener('blur',blur);
  return {controls,navigate,
- save(){saved={position:camera.position.clone(),target:controls.target.clone(),id:currentId};keys.clear();controls.enabled=false;},
- restore(){controls.enabled=true;if(saved){camera.position.copy(saved.position);controls.target.copy(saved.target);currentId=saved.id;onLocation(currentId);saved=undefined;controls.update();}},
- update(time:number){const dt=Math.min(time-last,.05);last=time;const {forward:direction,strafe}=movementAxes(keys);
-  if((direction||strafe)&&!blocked&&controls.enabled){
-   const scale=diagonalScale(direction,strafe);journey=THREE.MathUtils.clamp(journey+direction*scale*dt*.033,0,.999);lateral=nextLateral(lateral,strafe,dt,2*scale,1.7);curve.getPoint(journey,point);curve.getPoint(Math.min(1,journey+.03),target);routeRight.set(-(target.z-point.z),0,target.x-point.x).normalize();point.addScaledVector(routeRight,lateral);target.addScaledVector(routeRight,lateral);point.y+=2.2;target.y+=2.0;camera.position.copy(point);controls.target.copy(target);
-  }controls.update();
- },dispose(){window.clearTimeout(timer);veil.remove();controls.dispose();window.removeEventListener('keydown',down);window.removeEventListener('keyup',up);window.removeEventListener('blur',blur);}};
+ save(){movement.stop();saved={position:camera.position.clone(),yaw,pitch,id:currentId};keys.clear();controls.enabled=false;},
+ restore(){controls.enabled=true;if(saved){camera.position.copy(saved.position);yaw=saved.yaw;pitch=saved.pitch;currentId=saved.id;camera.rotation.set(pitch,yaw,0,'YXZ');onLocation(currentId);saved=undefined;movement.sync(camera.position);}},
+ update(time:number){const dt=Math.min(Math.max(time-last,0),.05);last=time;if(!blocked&&enabled){camera.rotation.set(pitch,yaw,0,'YXZ');camera.getWorldDirection(facing);camera.position.add(movement.update(camera.position,facing,movementAxes(keys),dt));}
+ },dispose(){window.clearTimeout(timer);veil.remove();canvas.removeEventListener('pointerdown',pointerDown);window.removeEventListener('pointermove',pointerMove);window.removeEventListener('pointerup',pointerUp);window.removeEventListener('pointercancel',pointerUp);window.removeEventListener('keydown',down);window.removeEventListener('keyup',up);window.removeEventListener('blur',blur);}};
 }

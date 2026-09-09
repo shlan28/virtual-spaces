@@ -24,7 +24,7 @@
 
 首次进入相应目录先执行 `npm ci`；云岛执行 `npm run dev -- --port 4173 --strictPort`，另外两个场景执行 `npm run dev`。三个场景共享 `virtual-spaces/.git`，统一提交和管理历史；各自依赖、启动端口、源代码、模型和媒体仍分开。没有 Git 子模块或嵌套活动仓库。旧实施记录中的独立仓库描述属于迁移前状态，以本索引为准。
 
-桌面端三个空间统一使用 WASD：W/S 沿路线前后移动，A/D 在路线宽度内左右移动。详细变更与验收范围见 [统一空间更新方案](./docs/unified-space-update-plan.md)。
+桌面端三个空间统一使用 WASD，移动方向跟随当前视角，并通过实体地面与墙体检测支持自由探索。详细方案见 [自由 WASD 移动改造](./docs/free-wasd-movement-plan.md)。
 
 ## 路径适配 Todo
 

@@ -45,8 +45,8 @@ export async function createWorld(renderer:THREE.WebGLRenderer,onProgress:(n:num
  onProgress(.08,'正在连接云海群岛');
  const layoutRes=await fetch('/models/world-layout.json');if(!layoutRes.ok)throw new Error('空间布局文件加载失败');const layout:WorldLayout=await layoutRes.json();
  const gltf=await new GLTFLoader().loadAsync('/models/cloud-world.glb',e=>onProgress(.10+Math.min(e.loaded/(e.total||4000000),1)*.40,'正在载入石拱与步道'));
- const detailed=new Set<THREE.Material>();const occluders:THREE.Mesh[]=[];
- gltf.scene.traverse(o=>{if(o instanceof THREE.Mesh){occluders.push(o);o.castShadow=true;o.receiveShadow=true;const materials=Array.isArray(o.material)?o.material:[o.material];for(const m of materials){if(m instanceof THREE.MeshStandardMaterial&&!detailed.has(m)){detailed.add(m);if(m.name.startsWith('Meadow')){m.color.set(0x607c46);addSurfaceDetail(m,true);}if(m.name.startsWith('Limestone')){m.color.set(0x899b93);addSurfaceDetail(m,false);}}}}});scene.add(gltf.scene);
+ const detailed=new Set<THREE.Material>(),occluders:THREE.Mesh[]=[],colliders:THREE.Object3D[]=[];
+ gltf.scene.traverse(o=>{if(o instanceof THREE.Mesh){occluders.push(o);colliders.push(o);o.castShadow=true;o.receiveShadow=true;const materials=Array.isArray(o.material)?o.material:[o.material];for(const m of materials){if(m instanceof THREE.MeshStandardMaterial&&!detailed.has(m)){detailed.add(m);if(m.name.startsWith('Meadow')){m.color.set(0x607c46);addSurfaceDetail(m,true);}if(m.name.startsWith('Limestone')){m.color.set(0x899b93);addSurfaceDetail(m,false);}}}}});scene.add(gltf.scene);
  onProgress(.62,'正在种下花草与粉色晶体');const vegetation=createVegetation(layout);scene.add(vegetation.group);
  const clouds=new THREE.Group(),texture=cloudTexture(),rand=seededRandom(772);
  for(let i=0;i<100;i++){
@@ -60,7 +60,7 @@ export async function createWorld(renderer:THREE.WebGLRenderer,onProgress:(n:num
  const planets=new THREE.Group();for(const [x,y,z,r]of[[-85,80,-140,11],[50,63,-180,6],[-18,55,-155,4]]){const planet=new THREE.Mesh(new THREE.SphereGeometry(r,48,32),new THREE.MeshStandardMaterial({color:x>0?0xe4cfca:0xbadede,roughness:.95,transparent:true,opacity:.62}));planet.position.set(x,y,z);planets.add(planet);}scene.add(planets);
  const motesGeo=new THREE.BufferGeometry();const positions=new Float32Array(180*3);for(let i=0;i<180;i++){positions.set([(rand()-.5)*60,5+rand()*16,(rand()-.5)*65],i*3);}motesGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));const motes=new THREE.Points(motesGeo,new THREE.PointsMaterial({color:0xffefd0,size:.045,transparent:true,opacity:.65}));scene.add(motes);
  onProgress(.85,'正在摆放访谈与观点');
- return {scene,camera,layout,occluders,
+ return {scene,camera,layout,occluders,colliders,
   update(time:number){waterMat.uniforms.time.value=time;motes.rotation.y=time*.008;clouds.position.x=Math.sin(time*.018)*1.3;},
   setLowQuality(low:boolean){vegetation.setLowQuality(low);sun.castShadow=!low;renderer.setPixelRatio(Math.min(devicePixelRatio,low?1:1.65));},
   dispose(){const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>(),textures=new Set<THREE.Texture>();scene.traverse(o=>{if(o instanceof THREE.Mesh||o instanceof THREE.Points||o instanceof THREE.Sprite){if('geometry'in o)geometries.add(o.geometry);for(const m of Array.isArray(o.material)?o.material:[o.material]){materials.add(m);for(const val of Object.values(m))if(val instanceof THREE.Texture)textures.add(val);}}});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());env.dispose();skyTexture.dispose();}

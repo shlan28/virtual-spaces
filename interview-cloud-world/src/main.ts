@@ -64,10 +64,10 @@ function visibility(){if(document.hidden)video.pause();}
 let frame=0,lastTime=0,frameTimes:number[]=[],diagnosticTick=0;
 async function start(){
  try{
-  renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.65));renderer.setSize(host.clientWidth,host.clientHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.domElement.tabIndex=0;renderer.domElement.setAttribute('aria-label','拖动观察，WASD 沿路线移动，左右键拨动切片，Enter 查看');host.append(renderer.domElement);
+  renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.65));renderer.setSize(host.clientWidth,host.clientHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.domElement.tabIndex=0;renderer.domElement.setAttribute('aria-label','拖动观察，WASD 按当前视角自由移动，左右键拨动切片，Enter 查看');host.append(renderer.domElement);
   world=await createWorld(renderer,ui.setLoading);if(disposed)return;
-  navigation=createNavigation(world.camera,renderer.domElement,world.layout,id=>{const d=destinations[id];ui.setLocation(d.name,d.description);ui.setActiveDestination(id);ui.setSliceControls(id==='interview',chapters[slices?.current??2].title);});
-  exhibits=createExhibits();world.scene.add(exhibits.group);
+  exhibits=createExhibits();world.scene.add(exhibits.group);world.colliders.push(...exhibits.interactive);world.scene.updateMatrixWorld(true);
+  navigation=createNavigation(world.camera,renderer.domElement,world.layout,world.colliders,id=>{const d=destinations[id];ui.setLocation(d.name,d.description);ui.setActiveDestination(id);ui.setSliceControls(id==='interview',chapters[slices?.current??2].title);});
   slices=await createVideoSlices(video,world.layout.platforms.interview);world.scene.add(slices.group,slices.satellites);
   ui.setLoading(.97,'准备出发');
   await renderer.compileAsync(world.scene,world.camera);

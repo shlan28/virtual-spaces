@@ -68,7 +68,7 @@ export function createInterface(options: InterfaceOptions) {
 
   const footer = element('footer', 'world-footer');
   const hint = element('p', 'navigation-hint');
-  hint.append(element('span', 'desktop-navigation-hint', '拖动观察 · 滚轮靠近 · WASD 移动'), element('span', 'touch-navigation-hint', '拖动观察 · 双指缩放 · 点击展品探索'));
+  hint.append(element('span', 'desktop-navigation-hint', '拖动观察 · WASD 自由移动 · 点击展品'), element('span', 'touch-navigation-hint', '拖动观察 · 点击展品探索'));
   const nav = element('nav', 'destination-nav');
   nav.setAttribute('aria-label', '空间目的地');
   const destinations = [ ['entry', '入口'], ['bend', '弯道'], ['interview', '洞室'], ['ideas', '观点'], ['mirror', '镜门'], ['summit', '高台'], ['overview', '全景'] ];

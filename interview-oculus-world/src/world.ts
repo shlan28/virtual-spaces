@@ -11,10 +11,10 @@ export async function createWorld(renderer:THREE.WebGLRenderer,onProgress:(p:num
  const architecture=gltf.scene;architecture.name='Oculus architecture';scene.add(architecture);
  let baked:THREE.Texture|undefined;
  try{baked=await new THREE.TextureLoader().loadAsync('/textures/architecture-lightmap.png');baked.colorSpace=THREE.SRGBColorSpace;baked.flipY=false;baked.anisotropy=8;}catch{console.info('静态光照尚未就绪，使用实时预览。');}
- const occluders:THREE.Mesh[]=[];
+ const occluders:THREE.Mesh[]=[],colliders:THREE.Object3D[]=[];
  architecture.traverse(o=>{
   if(!(o instanceof THREE.Mesh))return;
-  occluders.push(o);o.castShadow=true;o.receiveShadow=true;
+  occluders.push(o);colliders.push(o);o.castShadow=true;o.receiveShadow=true;
   const old=o.material as THREE.MeshStandardMaterial;
   if(baked){
    o.material=new THREE.MeshBasicMaterial({map:baked,color:0xffffff});
@@ -35,6 +35,6 @@ export async function createWorld(renderer:THREE.WebGLRenderer,onProgress:(p:num
   }
  });
  onProgress(.85);
- return {scene,architecture,occluders,lighting,baked:!!baked,
+ return {scene,architecture,occluders,colliders,lighting,baked:!!baked,
   dispose(){baked?.dispose();lighting.dispose();architecture.traverse(o=>{if(o instanceof THREE.Mesh){o.geometry.dispose();(o.material as THREE.Material).dispose();}});}};
 }

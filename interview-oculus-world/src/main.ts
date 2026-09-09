@@ -91,12 +91,13 @@ async function start(){
  world=await createWorld(renderer,p=>ui.setLoading(.1+p*.75,'正在载入建筑与天光'));
  exhibits=createExhibits();world.scene.add(exhibits.group);
  slices=await createVideoSlices(playback.video,layout.interviewCenter);world.scene.add(slices.group);
- nav=createNavigation(camera,renderer.domElement,layout,id=>{
+ world.colliders.push(...exhibits.interactive);world.scene.updateMatrixWorld(true);
+ nav=createNavigation(camera,renderer.domElement,layout,world.colliders,id=>{
   const d=layout.destinations[id];if(!d)return;ui.setLocation(d.name,d.description);ui.setActiveDestination(id);
   ui.setSliceControls(id==='interview',chapters[selected].title);
  });
  ui.setLocation(layout.destinations.entry.name,layout.destinations.entry.description);ui.setActiveDestination('entry');
- ui.setHint('拖动环顾 · WASD 沿路移动 · 点击展品');
+ ui.setHint('拖动环顾 · WASD 自由移动 · 点击展品');
  ui.setLoading(1);ui.finishLoading();
  let last=performance.now(),frameCount=0,elapsed=0,fps=0;
  renderer.setAnimationLoop(now=>{

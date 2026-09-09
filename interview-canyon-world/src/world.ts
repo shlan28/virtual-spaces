@@ -41,15 +41,15 @@ export async function createWorld(renderer:THREE.WebGLRenderer,onProgress:(n:num
  const hemi=new THREE.HemisphereLight(0xd8e6f6,0xb6a087,1.1);scene.add(hemi);
  const sun=new THREE.DirectionalLight(0xffe8d6,2.5);sun.position.set(-23,42,-40);sun.target.position.set(0,0,0);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-55,right:55,top:65,bottom:-65,near:1,far:140});sun.shadow.bias=-.0002;sun.shadow.normalBias=.075;scene.add(sun,sun.target);
  const gltf=await new GLTFLoader().loadAsync('/models/canyon-world.glb',e=>onProgress(.18+Math.min(1,e.loaded/(e.total||6000000))*.45,'沿着峡谷铺开小径'));
- const rock=stoneMaterial(base,norm,rough);const occluders:THREE.Mesh[]=[];
- gltf.scene.traverse(o=>{if(o instanceof THREE.Mesh){o.castShadow=true;o.receiveShadow=true;occluders.push(o);const old=o.material as THREE.MeshStandardMaterial;if(old.name.startsWith('Limestone'))o.material=rock;else if(old.name.startsWith('Walkway')){o.material=rock.clone();(o.material as THREE.MeshStandardMaterial).color.set(0xbdb1a1);(o.material as THREE.MeshStandardMaterial).onBeforeCompile=rock.onBeforeCompile;}}});scene.add(gltf.scene);
+ const rock=stoneMaterial(base,norm,rough),occluders:THREE.Mesh[]=[],colliders:THREE.Object3D[]=[];
+ gltf.scene.traverse(o=>{if(o instanceof THREE.Mesh){o.castShadow=true;o.receiveShadow=true;occluders.push(o);colliders.push(o);const old=o.material as THREE.MeshStandardMaterial;if(old.name.startsWith('Limestone'))o.material=rock;else if(old.name.startsWith('Walkway')){o.material=rock.clone();(o.material as THREE.MeshStandardMaterial).color.set(0xbdb1a1);(o.material as THREE.MeshStandardMaterial).onBeforeCompile=rock.onBeforeCompile;}}});scene.add(gltf.scene);
  scene.add(lightPath(layout.route));scene.add(lightPath([[4,1.07,15],[0,1.07,12],[-6,1.27,11],[-13,1.27,7]],.016));
  // 发光路径需要实际照明，少量灯同时服务相邻路段。
  for(const p of [layout.route[1],layout.route[3],layout.route[5],layout.route[7]]){const light=new THREE.PointLight(0xff9a50,17,9,1.6);light.position.set(p[0],p[1]+.30,p[2]);scene.add(light);}
  const caveLight=new THREE.PointLight(0xffba78,48,19,1.6);caveLight.position.set(-13,4.5,4);scene.add(caveLight);
  const caveFill=new THREE.PointLight(0xffd4a4,30,15,1.5);caveFill.position.set(-13,2,-1);scene.add(caveFill);
  const reflections=createReflections(scene,layout);onProgress(.85,'把对话安放在转角');
- return {scene,camera,layout,occluders,update(time:number){reflections.update(time);if(scene.fog instanceof THREE.Fog){const overview=camera.position.y>35;scene.fog.near=overview?140:55;scene.fog.far=overview?330:170;}},
+ return {scene,camera,layout,occluders,colliders,update(time:number){reflections.update(time);if(scene.fog instanceof THREE.Fog){const overview=camera.position.y>35;scene.fog.near=overview?140:55;scene.fog.far=overview?330:170;}},
  setLowQuality(low:boolean){reflections.setLowQuality(low);sun.castShadow=!low;renderer.setPixelRatio(Math.min(devicePixelRatio,low?1:1.5));},
  dispose(){reflections.dispose();const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>(),textures=new Set<THREE.Texture>([base,norm,rough,sky]);scene.traverse(o=>{if(o instanceof THREE.Mesh){geometries.add(o.geometry);for(const m of Array.isArray(o.material)?o.material:[o.material]){materials.add(m);for(const value of Object.values(m))if(value instanceof THREE.Texture)textures.add(value);}}});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());env.dispose();}
  };
