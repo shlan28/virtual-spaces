@@ -1,0 +1,33 @@
+# Dependencies and build products (all scenes)
+node_modules/
+dist/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# Local diagnostics and generated screenshots
+output/
+.playwright-cli/
+playwright-report/
+test-results/
+*.log
+__pycache__/
+*.py[cod]
+
+# Local environment; keep shareable templates
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.sample
+
+# OS metadata
+.DS_Store
+._*
+Thumbs.db
+
+# Large local authoring files and source video
+**/assets/*.blend*
+**/public/media/*.mp4
+
+# Keep GLB, textures, chapter atlases and lockfiles versioned.

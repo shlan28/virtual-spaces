@@ -1,0 +1,51 @@
+更新日期：2026-09-09 12:31:41 CST（Asia/Shanghai）
+
+更新说明：记录五月天歌迷交流空间三套首轮 3D 概念图的最终生成提示词。六张用户图片均只作为视觉参考，每个生成任务按工具限制选择其中五张。
+
+01 LAKE OF ECHOES
+
+Use case: stylized-concept
+Asset type: premium 3D architectural concept art for a virtual fan community
+Primary request: Design a coherent virtual space for fans of the rock band Mayday to meet, talk, and experience the emotional scale of a live concert. Concept 1: "Lake of Echoes", a floating open-air concert island at blue hour.
+Input images: Images 1–5 are visual references only. Learn from their floating stage, sculptural shell roof, fluid circulation, amphitheater geometry, warm concert lighting, and starry ceiling. Do not copy any one building.
+Scene/backdrop: a calm dark lake at blue hour, with a broad circular performance plaza floating above water. A thin flowing white shell curves over one end as the main stage canopy; water and distant mist frame the venue.
+Subject: one clearly readable main concert stage for hundreds, surrounded by a continuous luminous ring promenade. Along the outer ring are six small sunken conversation terraces, each seating 4–12 fans face-to-face around low warm lights. Some are tucked behind curved walls for acoustic privacy, while openings preserve glimpses of the stage. Bridges connect the ring to quieter floating pods and a shoreline arrival path.
+Style/medium: polished cinematic 3D architectural visualization, buildable geometry, elegant contemporary concert architecture, emotionally warm and communal, not a literal real venue.
+Composition/framing: wide elevated three-quarter aerial view, showing the entire connected layout and the relationship between main stage, ring promenade, small social terraces, bridges, and water; human figures for scale.
+Lighting/mood: deep cobalt blue evening, warm amber stage glow, soft white path lights reflected in water, subtle concert haze, feeling of reunion and anticipation.
+Color palette: pearl white, charcoal, deep blue, warm amber.
+Materials/textures: matte mineral shell, dark stone plaza, brushed metal details, glass rails, reflective water.
+Constraints: all spaces physically connected and walkable; small-group conversation areas must be clearly visible and distributed; main concert feeling must remain dominant; no readable text, no band logo, no portraits, no watermark.
+Avoid: cyberpunk, neon city, nightclub, generic sci-fi spaceship, excessive LED screens, giant empty stadium seating, impossible floating geometry, unrelated rooms, collage or split-panel presentation.
+
+02 SONG CANYON
+
+Use case: stylized-concept
+Asset type: premium 3D architectural concept art for a virtual fan community
+Primary request: Design a coherent virtual space for fans of the rock band Mayday to meet, talk, and experience the emotional scale of a live concert. Concept 2: "Song Canyon", an open-air landscape amphitheater carved into warm stone.
+Input images: Images 1–5 are visual references only. Learn from the desert amphitheater's flowing landform, elegant curved balconies, sculptural roof, concentric gathering rings, and warm performance light. Do not copy any one building.
+Scene/backdrop: a monumental sandstone landscape at sunset, shaped into one continuous flowing venue. A large semicircular concert bowl sits lower in the terrain, while curving paths climb to terraces and hidden courtyards.
+Subject: a main stage embedded in a dark curved opening with subtle vertical light curtains. Tiered audience steps sweep around it. Between the large tiers, carved niches and small oval conversation courts create intimate places for 4–12 fans, with low circular benches facing each other. Higher paths reveal acoustic gardens, listening alcoves, and overlook decks, all connected by ramps and broad stairs. The stage is gradually discovered after turning through the stone walls.
+Style/medium: cinematic high-end 3D architectural visualization, sculptural yet plausible, warm and tactile, expressive through landform rather than decorative screens.
+Composition/framing: wide elevated oblique view, enough ground-level perspective to read the route from entrance through small social courts toward the main amphitheater; human figures gathering in small groups.
+Lighting/mood: late golden hour transitioning into concert dusk, honey-colored grazing light on stone, restrained warm stage beams, intimate and nostalgic.
+Color palette: pale sandstone, dark bronze, muted olive planting, amber light, indigo sky.
+Materials/textures: fine striated stone, dark acoustic timber inside openings, planted dry gardens, matte bronze trims.
+Constraints: one coherent walkable environment; show at least five small conversation places integrated into the circulation; preserve strong concert identity and progressive discovery; no readable text, no band logo, no portraits, no watermark.
+Avoid: cyberpunk, purple neon, futuristic gadgets, generic mall, huge unused seating field, harsh desert survival mood, collage or split-panel presentation.
+
+03 CONSTELLATION HOUSE
+
+Use case: stylized-concept
+Asset type: premium 3D architectural concept art for a virtual fan community
+Primary request: Design a coherent virtual space for fans of the rock band Mayday to meet, talk, and experience the emotional scale of a live concert. Concept 3: "Constellation House", an indoor night-sky concert hall designed around conversation before and after the show.
+Input images: Images 1–5 are visual references only. Learn from the organic golden lattice hall, flowing balcony, perforated star ceiling, grand concentric gathering rings, and luminous sculptural canopy. Do not copy any one building.
+Scene/backdrop: a vast but welcoming interior with a dark star-perforated ceiling flowing into warm sculpted walls. A central oval concert stage anchors the hall beneath a suspended constellation-like luminous canopy.
+Subject: a standing concert floor and sweeping balcony frame the main stage. Around and behind the balcony are many clearly readable small conversation lounges for 4–10 fans: recessed curved booths, stepped mini forums, and circular balcony bays. Two broad ribbon ramps loop through the interior and connect every level. The small spaces maintain visual or acoustic traces of the main performance without becoming noisy bar seating. A central ring can transform from pre-show gathering to concert audience.
+Style/medium: cinematic premium 3D architectural interior visualization, refined contemporary performance architecture, romantic cosmic atmosphere, warm human scale, feasible spatial logic.
+Composition/framing: ultra-wide eye-level view from an upper arrival balcony, clearly showing main stage, star ceiling, looping ramps, central audience ring, and multiple intimate conversation pockets; diverse small groups for scale, no identifiable celebrities.
+Lighting/mood: dark midnight ceiling with hundreds of soft white pin lights, warm amber indirect lighting, gentle white stage beams, subtle haze; communal, uplifting, emotionally expansive.
+Color palette: charcoal, warm walnut, champagne gold, ivory light.
+Materials/textures: ribbed acoustic timber, matte dark plaster, champagne metal mesh, soft upholstery, translucent luminous fabric.
+Constraints: circulation and small-group spaces must be visually legible; concert atmosphere is central; no readable text, no band logo, no portraits, no watermark.
+Avoid: cyberpunk, neon nightclub, casino luxury, wedding banquet, spaceship, excessive screens, impossible monumental scale without human places, collage or split-panel presentation.

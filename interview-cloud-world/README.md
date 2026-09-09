@@ -1,6 +1,6 @@
-更新日期：2026-09-06 20:23:08 CST（Asia/Shanghai）
+更新日期：2026-09-09 12:29:39 CST（Asia/Shanghai）
 
-更新说明：交付可运行的云海访谈空间，包含 Blender 地形、Three.js 浏览、真实视频切片和观点来源联动。
+更新说明：修正合并后的 Git 归属和建模脚本路径说明；统一入口见上级 README。
 
 # 锦供参考 · 云海思想群岛
 
@@ -41,7 +41,7 @@ Node.js 建议 22.12 以上。已在本机 Node 25.8 与 Blender 5.2 上验证�
 - `assets/cloud-world.blend`：独立 Blender 源场景，保留地形、天然石拱、道路、平台、相机和灯光。
 - `public/models/cloud-world.glb`：约 2.2 MB 的网页地形资产。
 - `public/models/world-layout.json`：植被和路线共用的场景参数。
-- `scripts/build_scene.py`：可重复执行的 Blender 制作脚本；每次创建独立场景，不删除用户已有场景。脚本中的 ROOT 指向本项目，移动项目后需修改该路径。
+- `scripts/build_scene.py`：可重复执行的 Blender 制作脚本；每次创建独立场景，不删除用户已有场景。ROOT 根据脚本所在位置推导，整体移动目录后无需修改；通过 MCP 执行时需将 `__file__` 设为脚本完整路径。
 - `public/textures/cloud-panorama.png`：内置 imagegen 生成的云海天空纹理，约 1.7 MB；不是完整空间的平面替代图。
 - `public/media/chapter-atlas.jpg`：从用户视频截取的章节缩略图图集。
 - `public/media/interview.mp4`：本地原片副本，约 183 MB，已排除 Git。
@@ -65,4 +65,4 @@ Blender 脚本可由 MCP 执行，也可以使用：
 
 已编写移动端窄屏样式，但当前浏览器的测试视口覆盖未生效，真实窄屏布局和手机 GPU 性能尚未验证。漫游采用路线移动和观察镜头，不具备完整角色物理、重力或任意地形攀爬。当前没有多人同步、账号管理或内容上传后台。
 
-此目录独立初始化 Git。代码、GLB、图集、天空纹理进入版本管理；视频、Blender 源文件、依赖、构建产物和运行截图留在本地。
+此目录与峡谷、天窗馆共享上级 `virtual-spaces` Git 仓库。代码、GLB、图集、天空纹理进入版本管理；视频、Blender 源文件、依赖、构建产物和运行截图留在本地。

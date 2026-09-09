@@ -1,0 +1,51 @@
+更新日期：2026-09-09 13:09:41 CST（Asia/Shanghai）
+
+更新说明：记录第二轮小型湖上演出与歌迷交流空间的最终生成提示词。用户提供的图片仅作为视觉参考。
+
+04 POCKET LAKE STAGE
+
+Use case: stylized-concept
+Asset type: compact 3D virtual-space architectural concept
+Primary request: Create a small, intimate virtual concert-and-community space for Mayday fans, inspired by the reference image but newly designed. Concept A: a compact floating pocket stage on a lake.
+Input images: Image 1 is a visual reference only for the simple floating platform, practical small stage, water setting, and modest event scale. Do not copy it literally.
+Scene/backdrop: quiet lake in soft late-afternoon overcast light, a single connected floating platform about 28 meters across.
+Subject: a modest covered live-band stage at one side, sized for five musicians; an open standing audience area for roughly 60–80 people; three clearly visible small fan conversation spaces built into the perimeter, each seating 6–10 people face-to-face on low curved benches. One short dock connects the entrance, stage, audience floor, and conversation areas. Keep the layout compact, legible, and buildable.
+Style/medium: polished realistic 3D architectural visualization, restrained contemporary design, friendly community atmosphere, closer to a well-designed small outdoor venue than a luxury landmark.
+Composition/framing: elevated three-quarter view similar to an architectural competition rendering, close enough to read how people use the stage and conversation spaces; natural human scale.
+Lighting/mood: soft daylight with only a few warm practical stage lamps and subtle edge lights for safety, no dramatic concert beams.
+Color palette: light gray metal, charcoal stage, muted lake blue, small warm wood accents.
+Materials/textures: simple steel truss, matte fabric canopy, dark nonslip deck, warm timber benches.
+Constraints: visibly small footprint; one stage, one audience area, three intimate conversation zones; all areas physically connected; no readable text, no band logo, no celebrity likeness, no watermark.
+Avoid: grand architecture, luxury resort, multiple levels, monumental roof, chandeliers, excessive lighting, glowing pathways, fireworks, cyberpunk, nightclub, empty giant plaza, restaurant tables, collage.
+
+05 DOCKSIDE FAN COURTYARD
+
+Use case: stylized-concept
+Asset type: compact 3D virtual-space architectural concept
+Primary request: Create a small, intimate virtual concert-and-community space for Mayday fans, inspired by the reference image but newly designed. Concept B: a simple dockside fan courtyard with a small concert stage.
+Input images: Image 1 is a visual reference only for the open platform, practical stage equipment, water edge, and accessible event feeling. Do not copy it literally.
+Scene/backdrop: a low rectangular pier beside calm water, surrounded by a quiet natural shoreline, total venue about 24 by 30 meters.
+Subject: a low arched stage for five musicians at the short end; a central flat audience floor for about 50 standing fans; on both sides, two recessed semicircular conversation bays with stepped benches for 8–12 people, separated from the performance floor by low curved screens while keeping a view to the stage. A third small lounge sits at the rear near the entrance. Simple ramps and one broad aisle connect everything.
+Style/medium: high-quality realistic 3D architectural visualization, practical, modest and contemporary, community-centered.
+Composition/framing: eye-level wide view from the entrance so the small scale is obvious; stage ahead, audience space in the middle, conversation bays visible on both sides; people talking in small groups and a few watching rehearsal.
+Lighting/mood: calm early evening with natural sky light; only a small row of stage lights and warm low wall lamps.
+Color palette: cool gray, dark graphite, weathered timber, subdued blue water, restrained warm amber.
+Materials/textures: steel frame, matte black curtains, textured concrete deck, wood seating, simple railings.
+Constraints: compact and believable; clearly show both concert viewing and face-to-face fan conversation; no readable text, no band logo, no celebrity likeness, no watermark.
+Avoid: huge audience, elaborate shell building, ornate gold, star ceiling, bright LED walls, too many spotlights, glowing rings, luxury lounge, restaurant or banquet feeling, cyberpunk, collage.
+
+06 HALF-MOON MINI AMPHITHEATER
+
+Use case: stylized-concept
+Asset type: compact 3D virtual-space architectural concept
+Primary request: Create a small, intimate virtual concert-and-community space for Mayday fans, inspired by the reference image but newly designed. Concept C: a half-moon floating mini amphitheater.
+Input images: Image 1 is a visual reference only for the circular water platform, small performance stage, practical truss, and direct relationship between performers and audience. Do not copy it literally.
+Scene/backdrop: a single crescent-shaped floating platform close to shore on a calm lake, compact venue roughly 30 meters wide.
+Subject: a small black stage under a thin half-dome canopy; four shallow audience steps forming a half-moon for around 70 fans; gaps within the curved seating become two intimate conversation pockets for 6–8 people, plus one quiet standing deck behind the seats for casual discussion. The performer and audience distance is short. A narrow backstage cabin and one access dock complete the practical layout.
+Style/medium: refined but understated realistic 3D architectural concept render, simple geometry, welcoming small concert atmosphere.
+Composition/framing: elevated side view that clearly shows the crescent plan, compact dimensions, stage, audience steps, and conversation pockets; people as scale references.
+Lighting/mood: cloudy blue hour, dim ambient light, a few warm stage bulbs and discreet handrail lights only.
+Color palette: muted silver gray, charcoal, dark water blue, warm pale amber.
+Materials/textures: basic aluminum truss, matte membrane canopy, dark composite deck, timber-topped concrete seating.
+Constraints: small and intimate; no more than one primary platform; conversation areas must be distinct from audience seating yet remain visually connected to the stage; no readable text, no band logo, no celebrity likeness, no watermark.
+Avoid: monumental futuristic building, several islands, ornamental garden, lavish materials, thousands of lights, laser beams, giant screens, VIP tables, luxury resort, cyberpunk, collage.

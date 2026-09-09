@@ -1,0 +1,51 @@
+更新日期：2026-09-09 13:15:14 CST（Asia/Shanghai）
+
+更新说明：记录第三轮三种数千人规模、无人物、抽象化演唱会与歌迷交流空间的最终生成提示词。
+
+07 RIPPLE ARENA
+
+Use case: stylized-concept
+Asset type: abstract 3D architectural concept image for a large virtual concert and fan community
+Primary request: Design "Ripple Arena", a large floating concert venue for several thousand Mayday fans, derived from the visual ideas of the supplied floating stage and sculptural waterside building.
+Input images: Image 1 is a reference for the direct stage-on-water relationship and circular platform; Image 2 is a reference for the folded flowing roof silhouette. Both are style and spatial references only, not edit targets and not buildings to copy.
+Scene/backdrop: an abstract calm lake represented as a smooth desaturated blue plane, with one connected oval venue floating close to shore.
+Subject: a clearly dominant full-size concert stage beneath a single folded silver-white canopy, a broad standing floor for several thousand spectators, and two sweeping tiers of empty seating wrapping around the stage. Four smaller fan communication courts are carved into the outer circulation ring: circular stepped rooms for 20–40 people, acoustically sheltered by low curved walls but visually connected to the arena. Broad ramps and bridges connect stage, arena, conversation courts, and entrance.
+Style/medium: stylized architectural maquette render, abstract 3D concept art, simplified geometry, smooth surfaces, restrained detail, between a physical competition model and a high-end Blender concept render; deliberately not photorealistic.
+Composition/framing: wide elevated axonometric three-quarter view, entire venue readable as one coherent plan; empty architecture, no people or silhouettes anywhere.
+Lighting/mood: soft diffuse daylight, subtle ambient shadows, only a few understated warm stage lights; no concert light show.
+Color palette: matte ivory, brushed silver, charcoal, muted lake blue, tiny warm amber accents.
+Materials/textures: simplified matte resin, satin metal, dark acoustic surfaces, smooth water plane.
+Constraints: believable capacity for 3,000–5,000 people expressed by scale of standing floor, tiered seating and circulation; stage must feel large enough for a major rock concert; fan communication spaces must be visible as smaller nested rooms; all architecture connected and walkable; absolutely no people; no readable text, no band logo, no watermark.
+Avoid: photorealism, crowds, human silhouettes, luxury resort, ornate decoration, chandeliers, too many lights, lasers, glowing paths, neon, cyberpunk, tiny festival stage, multiple disconnected islands, collage.
+
+08 ERODED SONG ARENA
+
+Use case: stylized-concept
+Asset type: abstract 3D architectural concept image for a large virtual concert and fan community
+Primary request: Design "Eroded Song Arena", a large landscape amphitheater for several thousand Mayday fans, derived from the supplied desert amphitheater reference.
+Input images: Image 1 is a visual reference for flowing sandstone landforms, carved amphitheater geometry, tiered seating and embedded courtyards. It is a style and spatial reference only, not an edit target and not a building to copy.
+Scene/backdrop: a simplified abstract desert plateau with soft sculpted contours and almost no vegetation.
+Subject: a monumental but low-profile concert bowl carved into one continuous sandstone mass. A deep dark stage portal fits a full rock-band production; a large flat standing floor and broad concentric empty seating terraces support roughly 4,000–6,000 spectators. The upper rim branches into six small sunken fan discussion courtyards for 20–50 people, each with circular steps and a partial view toward the stage. Curved ramps link the courts to the arena concourse and create progressive discovery through the terrain.
+Style/medium: abstract architectural clay render, stylized Blender environment concept, simplified sculptural volumes, visible massing and circulation, not photorealistic, no fine real-world weathering.
+Composition/framing: high oblique aerial axonometric view close enough to see the stage, standing floor, seating tiers, ramps and smaller courtyards; no humans, no scale figures.
+Lighting/mood: soft warm overcast sunset, long gentle shadows, restrained stage glow from within the dark portal.
+Color palette: monochrome pale sandstone, dark umber stage voids, muted bronze, faint dusty blue sky.
+Materials/textures: smooth carved stone with subtle contour lines, matte surfaces, dark acoustic interiors.
+Constraints: capacity must read as several thousand through geometry alone; include one major performance space and clearly smaller communication courts; every route physically connected; absolutely no people or silhouettes; no text, logo or watermark.
+Avoid: photorealism, crowds, tiny amphitheater, ornate architecture, excessive vegetation, excessive lighting, laser show, neon, cyberpunk, luxury resort, banquet seating, disconnected courtyards, collage.
+
+09 CONSTELLATION RING ARENA
+
+Use case: stylized-concept
+Asset type: abstract 3D architectural concept image for a large virtual concert and fan community
+Primary request: Design "Constellation Ring Arena", a large indoor virtual concert venue for several thousand Mayday fans, derived from the supplied luminous concentric hall reference.
+Input images: Image 1 is a visual reference for concentric rings, a central ceremonial focal point, large oval openings and warm cosmic atmosphere. It is a style and spatial reference only, not an edit target and not a building to copy.
+Scene/backdrop: an abstract dark interior contained by one low oval shell, surrounded by a minimal black void.
+Subject: a large end-stage for a major rock concert at one side of an oval arena, facing a wide standing floor and three clean continuous balcony bands for approximately 5,000 spectators. The balcony bands thicken at six points to form smaller oval fan exchange rooms for 20–40 people, expressed as calm recessed forums with stepped circular seating. Two broad ribbon ramps connect all levels. Above the stage hangs one restrained abstract halo canopy, serving as a visual landmark rather than a chandelier.
+Style/medium: stylized conceptual 3D render, elegant architectural massing model, simplified smooth surfaces and graphic contrast, slightly surreal but structurally legible, distinctly not photorealistic.
+Composition/framing: cutaway isometric view from above and slightly inside, showing the full arena organization, stage, standing floor, balcony tiers, ramps and embedded conversation rooms; completely empty, no people or silhouettes.
+Lighting/mood: dark charcoal ambient space with soft ivory surfaces and sparse warm indirect light under balcony edges; only a few stage beams, no spectacle lighting.
+Color palette: charcoal black, warm ivory, muted champagne, small amber highlights.
+Materials/textures: matte plaster, satin dark metal, translucent mesh halo, simple acoustic panels.
+Constraints: arena scale must plausibly support 4,000–6,000 people; major stage and audience geometry dominate while the smaller fan communication rooms remain visibly distinct; all levels connected; absolutely no people; no readable text, no band logo, no watermark.
+Avoid: photorealism, crowds, figures, wedding banquet, luxury casino, giant chandelier, countless lights, star-field overload, glowing rings everywhere, cyberpunk, nightclub, spaceship, tiny stage, collage.
