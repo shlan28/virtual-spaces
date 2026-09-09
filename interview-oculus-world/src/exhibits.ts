@@ -18,9 +18,9 @@ export function createExhibits(){
   const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:tex,transparent:clear,side:THREE.FrontSide,toneMapped:false}));
   mesh.position.fromArray(p);mesh.rotation.y=rotation;mesh.userData=action;group.add(mesh);interactive.push(mesh);return mesh;
  }
- panel('锦供参考',['关于创新者，','与他们正在创造的世界。','从一场对话，走向更多问题。'],'A MUSEUM OF CONVERSATIONS',[-3.01,2.7,22.34],4.8,3.0,{navigate:'court'},0,true);
+ panel('关于创新者',['与他们正在创造的世界。','从一场对话，走向更多问题。'],'A MUSEUM OF CONVERSATIONS',[-3.01,2.7,22.34],4.8,3.0,{navigate:'court'},0,true);
  panel('01 / 创业的时间',['先行动，再调整','Vol.06 · 约 01:40 起'],'入口笔记',[-12.42,2.25,23],2.4,2.3,{chapter:0},Math.PI/2,true);
- panel('机器人是无数个行业',['王丛 · 地瓜机器人 CEO','八个片段 / 拨动选择 / 查看原片'],'锦供参考 VOL.06',[-24,4.15,-5.7],5.3,1.8,{chapter:2},0,true);
+ panel('机器人是无数个行业',['王丛 · 地瓜机器人 CEO','八个片段 / 拨动选择 / 查看原片'],'VOL.06',[-24,4.15,-5.7],5.3,1.8,{chapter:2},0,true);
  const summaries=[['三个时间尺度','当下的业务','新的机会','长期的投入'],['从工具到生态','软件工具 → 开发效率','开发效率 → 量产支持'],['今天与未来','大客户带来当下订单','创新客户帮助发现新需求']];
  summaries.forEach((s,i)=>panel(s[0],s.slice(1).concat(['编辑整理 · 点击查看来源']),`FIELD NOTES / 0${i+1}`,[-4.95+i*3.9,2.4,-9.40],2.75,3.8,{insight:i+1}));
  const nodes:[string,Point3,number][]=[['机器人',[-3,.55,1],0],['平台',[1,1.1,-2.7],2],['组织',[3.2,.45,2],1]];

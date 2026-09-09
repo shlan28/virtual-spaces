@@ -55,7 +55,7 @@ function up(event:PointerEvent){
  if(typeof data.chapter==='number')openChapter(data.chapter);
  else if(typeof data.navigate==='string'){closePanel();navigation?.navigate(data.navigate);}
  else if(typeof data.insight==='number'){const insight=exhibits?.getInsight(data.insight);if(insight){if(!panelOpen)navigation?.save();panelOpen=true;video.pause();ui.showInsight(insight.title,insight.body,()=>openChapter(insight.chapter));}}
- else if(data.pending){if(!panelOpen)navigation?.save();panelOpen=true;ui.showInsight('下一场对话，留在峡谷','目前接入的是锦供参考第六期真实访谈。这里预留给未来访谈，不代表已有节目或嘉宾。',()=>{closePanel();navigation?.navigate('interview');});}
+ else if(data.pending){if(!panelOpen)navigation?.save();panelOpen=true;ui.showInsight('下一场对话，留在峡谷','目前接入的是第六期真实访谈。这里预留给未来访谈，不代表已有节目或嘉宾。',()=>{closePanel();navigation?.navigate('interview');});}
 }
 function cancel(){pressed=undefined;if(navigation)navigation.controls.enabled=true;}
 function key(event:KeyboardEvent){
@@ -69,7 +69,7 @@ function visibility(){if(document.hidden)video.pause();}
 let frame=0,lastTime=0,frameTimes:number[]=[],diagnosticTick=0;
 async function start(){
  try{
-  renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(host.clientWidth,host.clientHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;renderer.info.autoReset=false;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.domElement.tabIndex=0;renderer.domElement.setAttribute('aria-label','拖动观察，W/S 沿路前进，左右键拨动切片，Enter 查看');host.append(renderer.domElement);
+  renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(host.clientWidth,host.clientHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;renderer.info.autoReset=false;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.domElement.tabIndex=0;renderer.domElement.setAttribute('aria-label','拖动观察，WASD 沿路线移动，左右键拨动切片，Enter 查看');host.append(renderer.domElement);
   world=await createWorld(renderer,ui.setLoading);if(disposed)return;
   effects=createEffects(renderer,world.scene,world.camera);
   navigation=createNavigation(world.camera,renderer.domElement,world.layout,id=>{const d=destinations[id];ui.setLocation(d.name,d.description);ui.setActiveDestination(id);ui.setSliceControls(id==='interview',chapters[slices?.current??2].title);});

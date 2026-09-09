@@ -1,5 +1,5 @@
 export interface Chapter { id: string; title: string; start: number; end: number; summary: string }
-export const interview = {id:'digua-06',title:'一场机器人智能大爆发，与硬件创业黄金时代',guest:'王丛 · 地瓜机器人 CEO',series:'锦供参考 Vol.06',duration:4314.005,src:'/media/interview.mp4'};
+export const interview = {id:'digua-06',title:'一场机器人智能大爆发，与硬件创业黄金时代',guest:'王丛 · 地瓜机器人 CEO',series:'Vol.06',duration:4314.005,src:'/media/interview.mp4'};
 export const chapters: Chapter[] = [
   {id:'start',title:'先行动，再调整',start:100,end:244,summary:'从创业经历出发，讨论在不确定中做选择，以及为什么时间是创业公司昂贵的成本。'},
   {id:'platform',title:'为什么选择平台？',start:244,end:540,summary:'从定制项目走向平台：理解能力、需求和商业模式，寻找适合自己的位置。'},

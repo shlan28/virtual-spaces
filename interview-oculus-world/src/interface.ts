@@ -37,7 +37,7 @@ export function createInterface(options: InterfaceOptions) {
 
   const header = element('header', 'world-header');
   const brand = element('div', 'world-brand');
-  brand.append(element('span', 'brand-symbol', '◯'), element('span', 'brand-name', '锦供参考'));
+  brand.append(element('span', 'brand-symbol', '◯'), element('span', 'brand-name', '天窗访谈馆'));
   const brandCopy = element('div', 'brand-copy');
   brandCopy.append(element('span', 'brand-eyebrow', 'OCULUS / 天窗访谈馆'), element('span', 'brand-description', '循着天光，发现思想之间的联系'));
   const utilities = element('div', 'world-utilities');
@@ -68,7 +68,7 @@ export function createInterface(options: InterfaceOptions) {
 
   const footer = element('footer', 'world-footer');
   const hint = element('p', 'navigation-hint');
-  hint.append(element('span', 'desktop-navigation-hint', '拖动转头 · W / S 沿路行走 · 点击展品'), element('span', 'touch-navigation-hint', '拖动转头 · 下方切换展区 · 点击展品'));
+  hint.append(element('span', 'desktop-navigation-hint', '拖动转头 · WASD 沿路移动 · 点击展品'), element('span', 'touch-navigation-hint', '拖动转头 · 下方切换展区 · 点击展品'));
   const nav = element('nav', 'destination-nav');
   nav.setAttribute('aria-label', '空间目的地');
   const destinations = [ ['entry', '入口叠景'], ['court', '下沉中庭'], ['interview', '对话侧厅'], ['mezzanine', '夹层回廊'] ];
@@ -125,7 +125,7 @@ export function createInterface(options: InterfaceOptions) {
   const videoFrame = element('div', 'video-frame');
   options.video.controls = true;
   options.video.playsInline = true;
-  options.video.setAttribute('aria-label', '锦供参考访谈视频');
+  options.video.setAttribute('aria-label', '访谈视频');
   videoFrame.append(options.video);
   const playback = button('▶ 播放这一段', 'source-button', options.onPlay);
   const panelBody = element('p', 'panel-body');
@@ -194,7 +194,7 @@ export function createInterface(options: InterfaceOptions) {
   const loadingFill = element('div', 'loading-fill');
   loadingTrack.append(loadingFill);
   const loadingPercent = element('span', 'loading-percent', '0%');
-  loadingInner.append(element('div', 'loading-emblem', '◯'), element('div', 'loading-eyebrow', '锦供参考 / OCULUS MUSEUM'), loadingTitle, loadingMessage, loadingTrack, loadingPercent);
+  loadingInner.append(element('div', 'loading-emblem', '◯'), element('div', 'loading-eyebrow', '天窗访谈馆 / OCULUS MUSEUM'), loadingTitle, loadingMessage, loadingTrack, loadingPercent);
   loading.append(loadingInner);
   root.append(header, location, footer, sliceToolbar, panel, loading, error);
 
@@ -209,7 +209,7 @@ export function createInterface(options: InterfaceOptions) {
     },
     finishLoading() { loading.hidden = true; },
     setLocation(name: string, description: string) {
-      locationEyebrow.textContent = '锦供参考 / 探索现场';
+      locationEyebrow.textContent = '天窗访谈馆 / 探索现场';
       locationTitle.textContent = name;
       locationDescription.textContent = description;
     },

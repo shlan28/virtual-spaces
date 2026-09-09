@@ -37,7 +37,7 @@ export function createInterface(options: InterfaceOptions) {
 
   const header = element('header', 'world-header');
   const brand = element('div', 'world-brand');
-  brand.append(element('span', 'brand-symbol', '✳'), element('span', 'brand-name', '锦供参考'));
+  brand.append(element('span', 'brand-symbol', '✳'), element('span', 'brand-name', '峡谷思想回声'));
   const brandCopy = element('div', 'brand-copy');
   brandCopy.append(element('span', 'brand-eyebrow', 'THE CANYON OF CONVERSATIONS'), element('span', 'brand-description', '关于创新者，与他们正在创造的世界'));
   const utilities = element('div', 'world-utilities');
@@ -68,7 +68,7 @@ export function createInterface(options: InterfaceOptions) {
 
   const footer = element('footer', 'world-footer');
   const hint = element('p', 'navigation-hint');
-  hint.append(element('span', 'desktop-navigation-hint', '拖动观察 · 滚轮靠近 · W / S 前进后退'), element('span', 'touch-navigation-hint', '拖动观察 · 双指缩放 · 点击展品探索'));
+  hint.append(element('span', 'desktop-navigation-hint', '拖动观察 · 滚轮靠近 · WASD 移动'), element('span', 'touch-navigation-hint', '拖动观察 · 双指缩放 · 点击展品探索'));
   const nav = element('nav', 'destination-nav');
   nav.setAttribute('aria-label', '空间目的地');
   const destinations = [ ['entry', '入口'], ['bend', '弯道'], ['interview', '洞室'], ['ideas', '观点'], ['mirror', '镜门'], ['summit', '高台'], ['overview', '全景'] ];
@@ -121,7 +121,7 @@ export function createInterface(options: InterfaceOptions) {
   const videoFrame = element('div', 'video-frame');
   options.video.controls = true;
   options.video.playsInline = true;
-  options.video.setAttribute('aria-label', '锦供参考访谈视频');
+  options.video.setAttribute('aria-label', '访谈视频');
   videoFrame.append(options.video);
   const playback = button('▶ 播放这一段', 'source-button', options.onPlay);
   const panelBody = element('p', 'panel-body');
@@ -177,7 +177,7 @@ export function createInterface(options: InterfaceOptions) {
   const loadingFill = element('div', 'loading-fill');
   loadingTrack.append(loadingFill);
   const loadingPercent = element('span', 'loading-percent', '0%');
-  loadingInner.append(element('div', 'loading-emblem', '✳'), element('div', 'loading-eyebrow', '锦供参考 / CANYON MUSEUM'), loadingTitle, loadingMessage, loadingTrack, loadingPercent);
+  loadingInner.append(element('div', 'loading-emblem', '✳'), element('div', 'loading-eyebrow', '峡谷思想回声 / CANYON MUSEUM'), loadingTitle, loadingMessage, loadingTrack, loadingPercent);
   loading.append(loadingInner);
   root.append(header, location, footer, sliceToolbar, panel, loading, error);
 
@@ -192,7 +192,7 @@ export function createInterface(options: InterfaceOptions) {
     },
     finishLoading() { loading.hidden = true; },
     setLocation(name: string, description: string) {
-      locationEyebrow.textContent = '锦供参考 / 探索现场';
+      locationEyebrow.textContent = '峡谷思想回声 / 探索现场';
       locationTitle.textContent = name;
       locationDescription.textContent = description;
     },

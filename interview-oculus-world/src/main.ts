@@ -96,7 +96,7 @@ async function start(){
   ui.setSliceControls(id==='interview',chapters[selected].title);
  });
  ui.setLocation(layout.destinations.entry.name,layout.destinations.entry.description);ui.setActiveDestination('entry');
- ui.setHint('拖动环顾 · W / S 沿路前后 · 点击展品');
+ ui.setHint('拖动环顾 · WASD 沿路移动 · 点击展品');
  ui.setLoading(1);ui.finishLoading();
  let last=performance.now(),frameCount=0,elapsed=0,fps=0;
  renderer.setAnimationLoop(now=>{

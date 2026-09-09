@@ -20,7 +20,7 @@ export function createExhibits(){
   const board=new THREE.Mesh(new THREE.BoxGeometry(w+.06,h+.06,.10),new THREE.MeshStandardMaterial({color:0xb9c5b4,roughness:.35,metalness:.2}));board.castShadow=true;frame.add(board);
   const front=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:textTexture(title,lines,label),toneMapped:false}));front.position.z=.056;front.userData=action;frame.add(front);interactive.push(front);group.add(frame);return frame;
  }
- panel('思想，连成群岛',['锦供参考','关于创业、科技与未来的对话','沿着小径，发现值得继续追问的问题。'],'CONVERSATIONS IN THE CLOUDS',[-3.6,6.9,17],1.6,2.3, {navigate:'overview'},.18);
+ panel('思想，连成群岛',['关于创业、科技与未来的对话','沿着小径，发现值得继续追问的问题。'],'CONVERSATIONS IN THE CLOUDS',[-3.6,6.9,17],1.6,2.3, {navigate:'overview'},.18);
  panel('同时经营三个时间尺度',['01  成熟业务 · 确定性','02  新硬件 · 新机会','03  具身 · 长期未来','地瓜内部业务分类 · 编辑整理'],'THE THREE HORIZONS',[5,11,0],2.15,3.25,{insight:1},.30);
  panel('工具如何长成生态？',['软件工具','↓','开发效率','↓','支持量产'],'IDEAS / 平台与生态',[-3,9.8,3],1.6,2.8,{insight:2},-.20);
  panel('下一场对话，留在云端',['新的嘉宾与问题','将在这里继续生长。','待加入访谈'],'COMING NEXT',[18,16,-26],2.5,3.6,{pending:true});

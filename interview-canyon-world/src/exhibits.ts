@@ -19,8 +19,8 @@ export function createExhibits(){
   const tex=labelTexture(title,lines,label,transparent,w/h);textures.push(tex);
   const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:tex,transparent,side:THREE.DoubleSide,toneMapped:false}));m.position.fromArray(p);m.rotation.y=rotation;m.userData=action;group.add(m);interactive.push(m);return m;
  }
- panel('锦供参考',['一场对话，打开一个世界。','沿着光路，发现访谈与观点。','当前展出 / 王丛 · 地瓜机器人'],'THE CANYON OF CONVERSATIONS',[8,3.2,37],1.8,2.8,{navigate:'interview'},.25);
- panel('机器人时代',['王丛 · 地瓜机器人 CEO','锦供参考 Vol.06','拨动独立切片，进入你关心的段落。'],'CONVERSATION  /  01',[-13,9.8,9.1],6,2.6,{navigate:'interview'},0,true);
+ panel('一场对话，打开一个世界',['沿着光路，发现访谈与观点。','当前展出 / 王丛 · 地瓜机器人'],'THE CANYON OF CONVERSATIONS',[8,3.2,37],1.8,2.8,{navigate:'interview'},.25);
+ panel('机器人时代',['王丛 · 地瓜机器人 CEO','Vol.06','拨动独立切片，进入你关心的段落。'],'CONVERSATION  /  01',[-13,9.8,9.1],6,2.6,{navigate:'interview'},0,true);
  panel('软件工具，如何支持量产？',['软件与工具 → 开发效率 → 量产支持','这是本期访谈中的论述。','编辑整理 · 约 29:44—34:08'],'FIELD NOTES  /  平台与生态',[-5.8,12.2,9.1],5,5.6,{insight:2},0,true);
  // 主分支是可读的关系而非装饰闪电；每条结点保留同一来源。
  const trunk:Point3[]=[[-21,9,9.05],[-20.5,11,9.05],[-19.5,13,9.05],[-20,15,9.05],[-19.5,18,9.05]];

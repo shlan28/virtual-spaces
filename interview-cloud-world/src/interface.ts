@@ -37,7 +37,7 @@ export function createInterface(options: InterfaceOptions) {
 
   const header = element('header', 'world-header');
   const brand = element('div', 'world-brand');
-  brand.append(element('span', 'brand-symbol', '✳'), element('span', 'brand-name', '锦供参考'));
+  brand.append(element('span', 'brand-symbol', '✳'), element('span', 'brand-name', '云海思想群岛'));
   const brandCopy = element('div', 'brand-copy');
   brandCopy.append(element('span', 'brand-eyebrow', 'CONVERSATIONS IN THE CLOUDS'), element('span', 'brand-description', '关于创新者，与他们正在创造的世界'));
   const utilities = element('div', 'world-utilities');
@@ -68,7 +68,7 @@ export function createInterface(options: InterfaceOptions) {
 
   const footer = element('footer', 'world-footer');
   const hint = element('p', 'navigation-hint');
-  hint.append(element('span', 'desktop-navigation-hint', '拖动观察 · 滚轮靠近 · W / S 前进后退'), element('span', 'touch-navigation-hint', '拖动观察 · 双指缩放 · 点击展品探索'));
+  hint.append(element('span', 'desktop-navigation-hint', '拖动观察 · 滚轮靠近 · WASD 移动'), element('span', 'touch-navigation-hint', '拖动观察 · 双指缩放 · 点击展品探索'));
   const nav = element('nav', 'destination-nav');
   nav.setAttribute('aria-label', '空间目的地');
   const destinations = [ ['entry', '入口'], ['arch', '石拱'], ['interview', '访谈'], ['summit', '山顶'], ['overview', '全景'] ];
@@ -121,7 +121,7 @@ export function createInterface(options: InterfaceOptions) {
   const videoFrame = element('div', 'video-frame');
   options.video.controls = true;
   options.video.playsInline = true;
-  options.video.setAttribute('aria-label', '锦供参考访谈视频');
+  options.video.setAttribute('aria-label', '访谈视频');
   videoFrame.append(options.video);
   const playback = button('▶ 播放这一段', 'source-button', options.onPlay);
   const panelBody = element('p', 'panel-body');
@@ -177,7 +177,7 @@ export function createInterface(options: InterfaceOptions) {
   const loadingFill = element('div', 'loading-fill');
   loadingTrack.append(loadingFill);
   const loadingPercent = element('span', 'loading-percent', '0%');
-  loadingInner.append(element('div', 'loading-emblem', '✳'), element('div', 'loading-eyebrow', '锦供参考 / CLOUD WORLD'), loadingTitle, loadingMessage, loadingTrack, loadingPercent);
+  loadingInner.append(element('div', 'loading-emblem', '✳'), element('div', 'loading-eyebrow', '云海思想群岛 / CLOUD WORLD'), loadingTitle, loadingMessage, loadingTrack, loadingPercent);
   loading.append(loadingInner);
   root.append(header, location, footer, sliceToolbar, panel, loading, error);
 
